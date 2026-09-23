@@ -23,6 +23,7 @@
   Lightning Mic weapons, stages and Hyper mode.
 
 ## Consequences
-- Run length is set by kill speed. With the placeholder balance a strong run takes roughly
-  25–35 minutes. Tune `Spawner` numbers and `xpForLevel` for pacing.
+- Run length is set by kill speed. With the placeholder balance the autotest bot reaches
+  10,000 kills in about 13–14 minutes of game time (level ~50). For longer runs, lower
+  `Spawner:targetCount` / raise `hpScale` in `src/game/spawner.lua`, or steepen `xpForLevel`.
 - New unlockable content = data entry + an achievement that grants its unlock id.

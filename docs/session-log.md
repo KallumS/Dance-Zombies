@@ -180,3 +180,18 @@ Outcome summary:
 - _tool_ `Bash`: Run 30-minute fast-forward balance test
 - _tool_ `Bash`: Inspect transcript structure
 - _tool_ `Bash`: Export readable session log to docs
+- _tool_ `Bash`: Review rest of session log
+
+**Claude:** The session log reads well and contains nothing sensitive. I'll regenerate it just before the final commit so it covers the whole session. Checking on the long balance run:
+
+- _tool_ `Bash`: Check long run output
+
+**Claude:** Still running. I'll commit the work so far while it finishes.
+
+- _tool_ `Bash`: Commit the prototype
+- _tool_ `Bash`: Push branch to origin
+
+**Claude:** Pushed. Waiting for the balance run to finish:
+
+- _tool_ `Bash`: Wait for long-run report
+- _tool_ `Bash`: Fix ADR pacing note, refresh log, commit and push
