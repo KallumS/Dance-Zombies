@@ -1,0 +1,18 @@
+local S = require("src.core.serialize")
+return function(t)
+  t.test("serialize round trips nested tables", function()
+    local v = { a = 1, b = "hi \"there\"\n", c = { true, false, 3.5 }, ["with space"] = { x = -2 } }
+    local back = S.decode(S.encode(v))
+    t.eq(back.a, 1); t.eq(back.b, v.b); t.eq(back.c[1], true); t.eq(back.c[2], false)
+    t.near(back.c[3], 3.5); t.eq(back["with space"].x, -2)
+  end)
+  t.test("decode cannot reach globals", function()
+    local res = S.decode("return os")
+    t.eq(res, nil)
+    t.eq(S.decode("return {x = print}").x, nil)
+  end)
+  t.test("decode reports syntax errors", function()
+    local res, err = S.decode("return {")
+    t.eq(res, nil); t.truthy(err)
+  end)
+end

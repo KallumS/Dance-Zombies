@@ -1,0 +1,17 @@
+# LÖVE build outputs
+*.love
+dist/
+build/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Audio project files (keep exported stems, not DAW sessions)
+*.als
+*.flp
+*.logicx
+*.rpp-bak
