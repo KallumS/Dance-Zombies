@@ -195,3 +195,50 @@ Outcome summary:
 
 - _tool_ `Bash`: Wait for long-run report
 - _tool_ `Bash`: Fix ADR pacing note, refresh log, commit and push
+- _tool_ `SendUserFile`: 
+
+**Claude:** The game is built and pushed to `claude/exciting-goodall-hksnhz`. The earlier attempt ran out before anything was committed, so I started again from the empty repo. Run it with `love .` after installing LÖVE 11.5.
+
+**Engine:** I stuck with Lua + Love2D. Godot was the main alternative, but Love2D does everything this game needs and the project stays plain text files. The reasoning is in ADR-0001.
+
+**How the music drives attacks:**
+- **Stems:** each stage's song is split into stems: an always-on backing layer plus drums, hi-hats, bass, guitar, keys and lead. They all play from the start; stems for weapons you don't have yet are just silent.
+- **Weapons:** each of the six weapons is tied to one stem. Picking one up fades its stem in, e.g. the Shotgun brings in the guitars.
+- **Timing:** each stem has a pattern in the song file, a string like `X.o.X.x.X.o.X.x.` with one character per 16th note. The weapon fires on those hits, timed from the audio that's actually playing so it stays in sync.
+- **Levels:** a level-1 weapon fires on the `X` hits only. Level 3 adds `x`, level 5 adds `o`, so leveling up means the weapon plays more of the part. Evolved weapons fire on every hit.
+- **Zombies:** they spawn on the beat and lunge forward on it.
+
+**Everything else you listed is in:**
+- XP gems and a choice of three upgrades on level-up.
+- Evolutions: max a weapon and own its matching passive.
+- Four characters, four zombie types, and a boss every 1,000 kills.
+- Three stages, each with its own song, plus a Hyper mode.
+- Rotting brains to spend in a Brain Shop between runs.
+- Ruins to find, and achievements that unlock characters, weapons, stages and modes.
+- The 10,000-kill ending, where you die and rise as a zombie.
+
+**Placeholders:** all music comes from a built-in synth that plays the same patterns the weapons use, and all graphics are simple shapes. When you add a sprite or audio file with the right name, the game uses it instead, one file at a time, with no code changes.
+
+**Testing:** there are 29 unit tests, all passing. A bot also plays the game headlessly; it finished a full run (10,020 kills, level 51) and every stage and starting character works. That testing found two problems, both fixed:
+- **Hi-Hat Blades never fired:** the Graveyard song's hi-hat pattern had no `X`, so the level-1 weapon had nothing to fire on. There's now a test that catches this.
+- **Runs are short:** the bot won in about 13.5 minutes of game time. I've recorded that in the docs along with which numbers to change if you want longer runs.
+
+**Not checked:** the test machine has no sound output, so I couldn't hear whether attacks line up with the music. Please check on your machine. F1 shows timing info and F2 plays a click on every beat. If attacks feel early or late (Bluetooth headphones often cause this), Options → Calibrate measures it by having you tap along.
+
+**Documents you asked for:**
+- **`CLAUDE.md`:** project map, commands, rules not to break, and developer keys.
+- **`docs/adr/`:** ten decision records plus a template for future ones.
+- **`docs/GUIDE.md`:** your takeover guide. It covers exporting stems from your DAW, writing patterns, checking sync, the full list of sprite and sound names with sizes, adding stages and weapons, balancing, and building a release.
+- **`docs/session-log.md`:** a readable backup of this session. It keeps your messages, my replies and a one-line note for each action, but leaves out the raw tool output.
+
+
+### User (2026-09-23 14:16:23 UTC)
+
+> Update and optimise the memory, then give me a prompt to continue this project in a fresh session
+
+- _tool_ `Bash`: Check repo state before editing memory
+
+**Claude:** I'll rewrite CLAUDE.md: tighter, plus the current state, known gaps, and the gotchas this session hit, so a fresh session doesn't rediscover them.
+
+- _tool_ `Write`: /home/user/Dance-Zombies/CLAUDE.md
+- _tool_ `Bash`: Refresh log, test, commit and push memory update
